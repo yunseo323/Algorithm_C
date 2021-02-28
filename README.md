@@ -1,2 +1,12 @@
 # DataStructure_C
-C언어로 하는 자료구조
+
+## 연결리스트
+
+## 집합 ADT
+
+## 스택 ADT
+
+## 큐 ADT
+
+## 트리 ADT
+
