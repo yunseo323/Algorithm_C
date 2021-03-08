@@ -18,7 +18,7 @@ typedef struct __node {
 
 //연결리스트
 typedef struct _list{
-	Node *head;  //머리 노드에 대한 포인터
+	Node *head;  //머리 노드에 대한 포인터 -> 데이터 값이 바로 들어감
     int size; //리스트 크기
 }List;
 
@@ -33,14 +33,13 @@ List *listInit() {
     return newList;
 }
 
-//노드를 초기화하는 함수
+//노드를 주어진 문자열로 초기화하는 함수
 Node *nodeInit(char *str) {
     Node *newNode = (Node *)malloc(sizeof(Node));
 
     newNode->data.name = (char *)malloc(strlen(str) + 1);
     strcpy(newNode->data, str);
 
-    // 새로운 노드의 포인터를 NULL로 지정
     newNode->next = NULL;
 
     return newNode;
@@ -49,12 +48,9 @@ Node *nodeInit(char *str) {
 
 /*추가*/
 
-
 //리스트의 끝에 노드를 추가하는 함수
 void addLast(List *list, char *str) {
-    // 새로운 노드를 생성하고 newNode 변수에 할당
     Node *newNode = nodeInit(str);
-    // selectNode : 리스트의 노드를 선택하기 위한 변수. 리스트의 head부터 시작
     Node *selectNode = list->head;
 
     // 리스트에 노드가 없는 경우
@@ -63,14 +59,11 @@ void addLast(List *list, char *str) {
     }
     // 리스트에 노드가 있는 경우
     else {
-        // while문으로 리스트의 head부터 마지막 노드까지 이동
         while (selectNode->next != NULL) {
             selectNode = selectNode->next;
         }
-        // 마지막 노드의 next를 새로운 노드로 지정
         selectNode->next = newNode;
     }
-    // 리스트에 노드가 추가되었으니 +1
     list->size++;
 }
 
@@ -94,15 +87,11 @@ void addNodeAt(List *list, char *str, int n) {
     Node *selectNode = list->head;
     int i;
 
-    // 리스트에 노드가 없거나 인수 n의 값이 올바르지 않을 경우
     if (list->size == 0 || n < 0 || list->size - 1 < n) {
-        // 리스트의 마지막에 노드를 추가
         addLast(list, str);
-        // 함수를 종료
         return 0;
     }
 
-    // 새로운 노드를 만들고 newNode에 할당
     newNode = nodeInit(str);
 
     if (n == 0) {
@@ -110,13 +99,10 @@ void addNodeAt(List *list, char *str, int n) {
         list->head = newNode;
     }
     else {
-        // 리스트의 head부터 시작해서 추가할 n번째 위치 이전의 노드(-1)까지 이동
         for (int i = 0; i < n - 1; i++) {
             selectNode = selectNode->next;
         }
-        // 새로운 노드의 next를 현재의 n번째 노드로 설정
         newNode->next = selectNode->next;
-        // 현재의 n-1번째 노드의 next를 새로운 노드의 설정
         selectNode->next = newNode;
     }
     list->size++;
@@ -133,7 +119,6 @@ void removeLast(List *list) {
     Node *prvNode;
     Node *selectNode = list->head;
 
-    // 리스트에 노드가 없는경우 함수를 종료
     if (list->head == NULL) return;
 
     // 리스트에 노드가 하나인 경우 head로 지정된 노드를 제거
@@ -144,7 +129,6 @@ void removeLast(List *list) {
     }
     // 리스트에 노드가 하나 이상인 경우
     else {
-        // prvNode는 마지막 노드의 이전 노드까지 이동
         while (selectNode->next != NULL) {
             prvNode = selectNode;
             selectNode = selectNode->next;
@@ -155,7 +139,7 @@ void removeLast(List *list) {
         // prvNode를 마지막 노드로 설정
         prvNode->next = NULL;
     }
-    // 노드가 삭제 되었으니 -1
+    
     list->size--;
 }
 
@@ -175,7 +159,6 @@ void removeLast(List *list) {
     }
     // 리스트에 노드가 하나 이상인 경우
     else {
-        // prvNode는 마지막 노드의 이전 노드까지 이동
         nextNode = list->head->next;
 
         free(selectNode->data);
@@ -194,7 +177,6 @@ void removeNodeAt(List *list, int n) {
 
     // 리스트에 노드가 없거나 인수 n의 값이 올바르지 않을 경우
     if (list->head == NULL || n < 0 || list->size - 1 < n) {
-        // 함수를 종료
         return;
     }
 
@@ -210,9 +192,8 @@ void removeNodeAt(List *list, int n) {
         for (int i = 0; i < n - 1; i++) {
             selectNode = selectNode->next;
         }
-        // 제거할 노드를 지정
-        deleteNode = selectNode->next;
-        // 현재 선택한 노드의 next를 다다음 노드로 변경
+        
+        deleteNode = selectNode->next;        
         selectNode->next = selectNode->next->next;
         // 노드 삭제
         free(deleteNode->data);
@@ -223,8 +204,8 @@ void removeNodeAt(List *list, int n) {
 
 /*탐색*/
 
-// searchNodes : str과 일치하는 데이터가 head로부터 몇번째 위치에 있는지 확인
-void searchNodes(List *list, char *str) {
+// searchNodes : 문자열 str이 head로부터 몇번째 위치에 있는지 확인 -> 참고
+void searchArrNodes(List *list, char *str) {
     // access[] : 위치를 저장할 배열을 생성 (같은 내용의 데이터가 있을수도 있으니)
     int access[100] = { -1 };
     int accessCount = 0;
@@ -265,10 +246,9 @@ void searchNodes(List *list, char *str) {
 
 //모든 데이터 출력
 void printList(List *list) {
-    // selectNode : 리스트의 노드를 선택하기 위한 변수. 리스트의 head부터 시작
     Node *selectNode = list->head;
 
-    // 리스트 head부터 시작하여 모든 노드의 데이터를 출력
+    // 출력
     while (selectNode != NULL) {
         printf("%s", selectNode->data);
         selectNode = selectNode->next;
