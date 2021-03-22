@@ -6,5 +6,6 @@
 - [집합](https://github.com/yunseo323/DataStructure_C/blob/main/mdFiles/setADT.md)
 - [스택](https://github.com/yunseo323/DataStructure_C/blob/main/mdFiles/stack.md)
 - 큐
+- 데크
 - 트리
 
