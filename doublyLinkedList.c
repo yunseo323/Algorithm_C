@@ -1,33 +1,33 @@
-/*ÀÌÁß ¿¬°á¸®½ºÆ®*/
+/*ì´ì¤‘ ì—°ê²°ë¦¬ìŠ¤íŠ¸*/
 
 
-typedef struct { //³ëµå¿¡ ´ãÀ» ÀÚ·á ¸â¹ö
+typedef struct { //ë…¸ë“œì— ë‹´ì„ ìë£Œ ë©¤ë²„
     int num;
     char *name;
 }Member;
 
-//³ëµå
+//ë…¸ë“œ
 typedef struct __node {
-    //Member data; -> µ¥ÀÌÅÍ ¿©·¯°³ ´ãÀ» ¼öµµ ÀÖÀ½
+    //Member data; -> ë°ì´í„° ì—¬ëŸ¬ê°œ ë‹´ì„ ìˆ˜ë„ ìˆìŒ
     char *data;
     struct __node *prev;
     struct __node *next;
 }Node;
 
-//¿¬°á¸®½ºÆ®
-//header&trailer Á¸Àç
+//ì—°ê²°ë¦¬ìŠ¤íŠ¸
+//header&trailer ì¡´ì¬
 typedef struct _list {
-    Node *header;  //¸Ó¸® ³ëµå¿¡ ´ëÇÑ Æ÷ÀÎÅÍ
+    Node *header;  //ë¨¸ë¦¬ ë…¸ë“œì— ëŒ€í•œ í¬ì¸í„°
     Node *trailer;
-    int size; //¸®½ºÆ® Å©±â
+    int size; //ë¦¬ìŠ¤íŠ¸ í¬ê¸°
 }List;
 
-//´Ü¼ø ¿¬°á ¸®½ºÆ®¸¦ ÃÊ±âÈ­ & ÇÒ´çÇÏ´Â ÇÔ¼ö
+//ë‹¨ìˆœ ì—°ê²° ë¦¬ìŠ¤íŠ¸ë¥¼ ì´ˆê¸°í™” & í• ë‹¹í•˜ëŠ” í•¨ìˆ˜
 List *listInit() {
-    // ¸®½ºÆ®¸¦ ¼±¾ğ
+    // ë¦¬ìŠ¤íŠ¸ë¥¼ ì„ ì–¸
     List *newList;
     newList = (List *)malloc(sizeof(List));
-    // »õ·Î¿î ¸®½ºÆ®ÀÇ head ÃÊ±âÈ­
+    // ìƒˆë¡œìš´ ë¦¬ìŠ¤íŠ¸ì˜ head ì´ˆê¸°í™”
     newList->header->next = newList->trailer;
     newList->trailer->prev = newList->header;
     newList->header->prev = NULL;
@@ -37,7 +37,7 @@ List *listInit() {
     return newList;
 }
 
-//³ëµå¸¦ ÁÖ¾îÁø ¹®ÀÚ¿­·Î ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö
+//ë…¸ë“œë¥¼ ì£¼ì–´ì§„ ë¬¸ìì—´ë¡œ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜
 Node *nodeInit(char *str) {
     Node *newNode = (Node *)malloc(sizeof(Node));
 
@@ -49,18 +49,18 @@ Node *nodeInit(char *str) {
     return newNode;
 }
 
-/*Ãß°¡*/ //-> ¿©±âºÎÅÍ
+/*ì¶”ê°€*/ //-> ì—¬ê¸°ë¶€í„°
 
-//¸®½ºÆ®ÀÇ ³¡¿¡ ³ëµå¸¦ Ãß°¡ÇÏ´Â ÇÔ¼ö
+//ë¦¬ìŠ¤íŠ¸ì˜ ëì— ë…¸ë“œë¥¼ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜
 void addLast(List *list, char *str) {
     Node *newNode = nodeInit(str);
-    Node *selectNode = list->head;
+    Node *selectNode = list->header;
 
-    // ¸®½ºÆ®¿¡ ³ëµå°¡ ¾ø´Â °æ¿ì
-    if (list->head == NULL) {
-        list->head = newNode;
+    // ë¦¬ìŠ¤íŠ¸ì— ë…¸ë“œê°€ ì—†ëŠ” ê²½ìš° , header ì´í›„ì— ì¶”ê°€í•¨
+    if (list->header == NULL) {
+        list->header->next = newNode;
     }
-    // ¸®½ºÆ®¿¡ ³ëµå°¡ ÀÖ´Â °æ¿ì
+    // ë¦¬ìŠ¤íŠ¸ì— ë…¸ë“œê°€ ìˆëŠ” ê²½ìš°
     else {
         while (selectNode->next != NULL) {
             selectNode = selectNode->next;
@@ -70,7 +70,7 @@ void addLast(List *list, char *str) {
     list->size++;
 }
 
-//¸®½ºÆ®ÀÇ Ã³À½¿¡ ³ëµå Ãß°¡
+//ë¦¬ìŠ¤íŠ¸ì˜ ì²˜ìŒì— ë…¸ë“œ ì¶”ê°€
 void addFirst(List *list, char *str) {
     Node *newNode = nodeInit(str);
 
@@ -84,7 +84,7 @@ void addFirst(List *list, char *str) {
     list->size++;
 }
 
-//¸®½ºÆ®ÀÇ head·ÎºÎÅÍ n¹øÂ° À§Ä¡¿¡ ³ëµå¸¦ Ãß°¡
+//ë¦¬ìŠ¤íŠ¸ì˜ headë¡œë¶€í„° në²ˆì§¸ ìœ„ì¹˜ì— ë…¸ë“œë¥¼ ì¶”ê°€
 void addNodeAt(List *list, char *str, int n) {
     Node *newNode;
     Node *selectNode = list->head;
