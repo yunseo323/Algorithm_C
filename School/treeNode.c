@@ -60,7 +60,7 @@ void postorder(TreeNode *t) { //후위순회
 		printf(" %d", t->data);
 	}
 }
-int cal(TreeNode *t) { //전위순회로 
+int cal(TreeNode *t) { //후위순회로 데이터 구하기
 	int left = 0, right = 0;
 	if (t == NULL) return 0;
 	else {
