@@ -117,11 +117,14 @@ void push(Stack *stack, char ch) {
 }
 
 void pop(Stack *stack) {
+	char ch = *(stack->top);
+	ch = stack->top;
 	if (stack->cnt == 0) printf("Stack Empty\n");
 	else {
 		(stack->top)--;
 		stack->cnt--;
 	}
+	return ch;
 }
 
 void peek(Stack *stack) { //top Ãâ·Â
