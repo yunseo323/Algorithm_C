@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-
-typedef struct stack {
-	int top;
-	char arr[1000];
+typedef struct _stack {
+	char *top;
+	char *arr;
+	int cnt;
 }Stack;
 
 Stack *init();
@@ -17,7 +19,7 @@ int isBalanced(char str[]);
 
 
 int main() {
-	char str[1000];
+	char str[1000] = { 0 };
 	gets(str);
 	int cnt = 0;
 	for (int i = 0; i < strlen(str); i++) {
@@ -38,45 +40,37 @@ int main() {
 }
 
 Stack *init() {
-	struct stack *S = (struct stack *)malloc(sizeof(struct stack));
-	S->top = -1;
+	Stack *S = (Stack *)malloc(sizeof(Stack));
+	S->arr = (char *)malloc(sizeof(char) * 1000);
+	S->top = S->arr;
+	S->cnt = 0;
 	return S;
 }
 int isOpenPar(char e) {
-	if (e == '(') {
-		return 1;
-	}
-	if (e == '{') {
-		return 1;
-	}
-	if (e == '[') {
+	if (e == '(' || e == '{' || e == '[') {
 		return 1;
 	}
 	return 0;
 }
 int isClosedPar(char e) {
-	if (e == ')') {
-		return 1;
-	}
-	if (e == '}') {
-		return 1;
-	}
-	if (e == ']') {
+	if (e == ')' || e == '}' || e == ']') {
 		return 1;
 	}
 	return 0;
 }
 void push(Stack *stack, char e) {
 	stack->top += 1;
-	stack->arr[stack->top] = e;
+	*(stack->top) = e;
+	stack->cnt++;
 }
 char pop(Stack *stack) {
-	char e = stack->arr[stack->top];
+	char e = *(stack->top);
 	stack->top -= 1;
+	stack->cnt--;
 	return e;
 }
 int isEmpty(Stack *stack) {
-	if (stack->top == -1) {
+	if (stack->cnt == 0) {
 		return 1;
 	}
 	return 0;
@@ -102,13 +96,12 @@ int isCounterPar(char a, char b) {
 int isBalanced(char str[]) {
 	Stack *stack = init();
 	for (int i = 0; i < strlen(str); i++) {
-		if (isOpenPar(str[i])) {
+		if (isOpenPar(str[i])) { //¿©´Â °ýÈ£ push
 			push(stack, str[i]);
 		}
-		else if (isClosedPar(str[i])) {
-			if (isCounterPar(stack->arr[stack->top], str[i])) {
+		else if (isClosedPar(str[i])) { //´Ý´Â °ýÈ£¿¡ °Ë»ç
+			if (isCounterPar(*(stack->top), str[i])) {
 				pop(stack);
-
 			}
 			else {
 				return 0;
