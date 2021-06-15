@@ -146,5 +146,6 @@ int main() {
 			dequeueAll(queue);
 		}
 	}
+	free(queue);
 	return 0;
 }

@@ -47,7 +47,6 @@ TreeNode *findNode(TreeNode *n, int num) {  //입력받은 id로 시작 노드 찾기
     TreeNode *p;
     if (n != NULL) {
         if (n->id == num) return n;
-
         p = findNode(leftChild(n), num);
         if (p != NULL) return p;
         p = findNode(rightChild(n), num);
@@ -150,5 +149,8 @@ int main() {
         }
         printf("\n");
     }
+    free(tree);
+    free(p);
+    
     return 0;
 }

@@ -33,7 +33,6 @@ Deque *add_front(Deque *d, int X) {
 	if (d->cnt > 0) {
 		p->next = d->front;
 		d->front->prev = p;
-
 		d->front = p;
 	}
 	d->cnt++;
