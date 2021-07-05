@@ -7,5 +7,5 @@
 - [스택](https://github.com/yunseo323/DataStructure_C/blob/main/mdFiles/stack.md)
 - [큐](https://github.com/yunseo323/DataStructure_C/blob/main/mdFiles/queue.md)
 - 데크
-- 트리
+- [트리](https://github.com/yunseo323/DataStructure_C/blob/main/mdFiles/tree.md)
 
