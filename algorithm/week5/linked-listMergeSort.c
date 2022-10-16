@@ -17,10 +17,12 @@ typedef struct _list{
 
 Node *make_node(int data);
 void add(List *list, int data); //리스트에 data 넣기
-void print_list(List list);
+void printList(List list); //출력
+void freeList(List list); //free
 void mergeSort(List *list, int size); //합병된것을 오름차순으로 정렬
 List merge(List *L1,List *L2); //두개의 단일연결리스트를 합병한 하나의 단일연결리스트 반환: 추가 공간 사용가능
 void partition(List L, int k, List *L1, List *L2); //L1과 L2로 반환
+
 
 int main(){
    int n, data;
@@ -32,7 +34,8 @@ int main(){
       add(pl,data);
    }
    mergeSort(pl,n);
-   print_list(list);
+   printList(list);
+   freeList(list);
    return 0;
 }
 
@@ -56,7 +59,7 @@ void add(List *list, int data){
       selectNode->next = make_node(data);
    }
 }
-void print_list(List list){
+void printList(List list){
    Node *p = list.head;
 
    while (p != NULL) {
@@ -64,7 +67,17 @@ void print_list(List list){
       p = p->next;
    }
 }
+void freeList(List list) {
 
+	Node *node = list.head;
+	Node *tmp;
+
+	while (node != NULL) {
+		tmp = node;
+		node = node->next;
+		free(tmp);
+	}
+}
 void mergeSort(List *list, int size){
    List l1, l2;
    if(size>1){ //basecase
