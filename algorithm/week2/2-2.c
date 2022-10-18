@@ -1,4 +1,4 @@
-//선택정렬
+//삽입정렬
 #include <stdio.h>
 #include <stdlib.h>
 
