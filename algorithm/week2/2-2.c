@@ -1,3 +1,4 @@
+//선택정렬
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,16 +13,13 @@ int main(){
         scanf("%d",&arr[i]);
     }
     for(int i=1;i<n;i++){
-       //뒤에서부터 작은거 switch
-        int k=i;
-        for(int j=i-1;j>=0;j--){
-            if(arr[k]<arr[j]){
-                tmp=arr[j];
-                arr[j]=arr[k];
-                arr[k]=tmp;
-                k--;
-            }
-        }
+       int j=i-1;
+       tmp=arr[i];
+       while (j >= 0 && arr[j] > tmp) {
+                arr[j + 1] = arr[j];
+                j--;
+             }
+      arr[j + 1] = tmp;
     }
     
     for(int i=0;i<n;i++){
