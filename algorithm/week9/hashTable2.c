@@ -72,11 +72,7 @@ void searchItem(HashTable *hash, int M, int data) {
 
    while (i < M) {
       num = hashFunction(data, i, M);
-      if (hash[num].data == 0) { //없음
-         printf("-1\n");
-         return;
-      }
-      else if (hash[num].data == data) {
+      if (hash[num].data == data) {
          printf("%d %d\n", num, data);
          return;
       }
